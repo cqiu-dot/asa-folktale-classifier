@@ -1,0 +1,17 @@
+torch>=2.0.0
+transformers>=4.38.0
+sentence-transformers>=2.3.0
+scikit-learn>=1.3.0
+numpy>=1.24.0
+pandas>=2.0.0
+jupyter>=1.0.0
+ipython>=8.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+nltk>=3.8.0
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+sae-lens>=0.2.0
+gemmascope>=0.1.0
+tqdm>=4.66.0
+pyyaml>=6.0
