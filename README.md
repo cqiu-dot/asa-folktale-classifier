@@ -109,7 +109,7 @@ jupyter notebook notebooks/03_interpretability.ipynb
 
 ## Contributors
 
-[Your name/team]
+Christopher Qiu, Jesse Brodtman
 
 ## License
 
