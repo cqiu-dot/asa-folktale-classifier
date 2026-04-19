@@ -91,7 +91,7 @@ class FolktaleDataLoader:
                     
                     # Extract text field (try common variations)
                     text = None
-                    for text_field in ['text', 'story', 'content', 'tale', 'fable']:
+                    for text_field in ['text', 'story', 'content', 'tale', 'fable', 'body']:
                         if text_field in tale and pd.notna(tale[text_field]):
                             text = str(tale[text_field])
                             break

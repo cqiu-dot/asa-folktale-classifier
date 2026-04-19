@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import sys; print\\(sys.version\\)\")",
+      "Bash(py -c \"import sys; print\\(sys.version\\)\")",
+      "Bash(conda run *)",
+      "Bash(py -c ' *)",
+      "Bash(where conda *)",
+      "Bash(where jupyter *)",
+      "Read(//c/Users/ltsev/anaconda3/**)",
+      "Read(//c/Users/ltsev/**)",
+      "Bash(py -3.13 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
+      "Bash(py -3.12 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
+      "Bash(py -3.11 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
+      "Bash(py -3.10 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
+      "Bash(py -c \"import sys; print\\(sys.executable\\)\")"
+    ]
+  }
+}

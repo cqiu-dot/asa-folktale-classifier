@@ -1,0 +1,60 @@
+Loading Western folktales …
+  1484 tales, 160 ATU categories (each >=3 examples)
+
+Training classifier …
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 4254.99it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Batches:   0%|          | 0/34 [00:00<?, ?it/s]Batches:   3%|2         | 1/34 [00:01<00:34,  1.05s/it]Batches:   6%|5         | 2/34 [00:01<00:31,  1.01it/s]Batches:   9%|8         | 3/34 [00:02<00:30,  1.03it/s]Batches:  12%|#1        | 4/34 [00:03<00:27,  1.08it/s]Batches:  15%|#4        | 5/34 [00:04<00:25,  1.13it/s]Batches:  18%|#7        | 6/34 [00:05<00:24,  1.16it/s]Batches:  21%|##        | 7/34 [00:06<00:22,  1.19it/s]Batches:  24%|##3       | 8/34 [00:07<00:21,  1.19it/s]Batches:  26%|##6       | 9/34 [00:07<00:20,  1.20it/s]Batches:  29%|##9       | 10/34 [00:08<00:19,  1.20it/s]Batches:  32%|###2      | 11/34 [00:09<00:19,  1.20it/s]Batches:  35%|###5      | 12/34 [00:10<00:18,  1.21it/s]Batches:  38%|###8      | 13/34 [00:11<00:17,  1.20it/s]Batches:  41%|####1     | 14/34 [00:12<00:16,  1.22it/s]Batches:  44%|####4     | 15/34 [00:12<00:15,  1.25it/s]Batches:  47%|####7     | 16/34 [00:13<00:14,  1.26it/s]Batches:  50%|#####     | 17/34 [00:14<00:13,  1.25it/s]Batches:  53%|#####2    | 18/34 [00:15<00:13,  1.18it/s]Batches:  56%|#####5    | 19/34 [00:16<00:13,  1.15it/s]Batches:  59%|#####8    | 20/34 [00:17<00:11,  1.19it/s]Batches:  62%|######1   | 21/34 [00:17<00:11,  1.17it/s]Batches:  65%|######4   | 22/34 [00:18<00:10,  1.18it/s]Batches:  68%|######7   | 23/34 [00:19<00:09,  1.20it/s]Batches:  71%|#######   | 24/34 [00:20<00:08,  1.23it/s]Batches:  74%|#######3  | 25/34 [00:21<00:07,  1.25it/s]Batches:  76%|#######6  | 26/34 [00:21<00:06,  1.22it/s]Batches:  79%|#######9  | 27/34 [00:22<00:05,  1.19it/s]Batches:  82%|########2 | 28/34 [00:23<00:05,  1.20it/s]Batches:  85%|########5 | 29/34 [00:24<00:04,  1.22it/s]Batches:  88%|########8 | 30/34 [00:25<00:03,  1.25it/s]Batches:  91%|#########1| 31/34 [00:25<00:02,  1.38it/s]Batches:  94%|#########4| 32/34 [00:26<00:01,  1.54it/s]Batches:  97%|#########7| 33/34 [00:26<00:00,  1.77it/s]Batches: 100%|##########| 34/34 [00:26<00:00,  1.28it/s]
+C:\Users\ltsev\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\ltsev\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sklearn\linear_model\_logistic.py:1184: FutureWarning: 'n_jobs' has no effect since 1.8 and will be removed in 1.10. You provided 'n_jobs=-1', please leave it unspecified.
+  warnings.warn(msg, category=FutureWarning)
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]Batches:  25%|##5       | 1/4 [00:00<00:02,  1.18it/s]Batches:  50%|#####     | 2/4 [00:01<00:01,  1.12it/s]Batches:  75%|#######5  | 3/4 [00:02<00:00,  1.09it/s]Batches: 100%|##########| 4/4 [00:03<00:00,  1.26it/s]Batches: 100%|##########| 4/4 [00:03<00:00,  1.20it/s]
+  Train acc=0.390  Val acc=0.210  n_classes=160
+
+Evaluating on Western held-out test set …
+Batches:   0%|          | 0/10 [00:00<?, ?it/s]Batches:  10%|#         | 1/10 [00:00<00:07,  1.18it/s]Batches:  20%|##        | 2/10 [00:01<00:06,  1.15it/s]Batches:  30%|###       | 3/10 [00:02<00:06,  1.15it/s]Batches:  40%|####      | 4/10 [00:03<00:05,  1.15it/s]Batches:  50%|#####     | 5/10 [00:04<00:04,  1.17it/s]Batches:  60%|######    | 6/10 [00:05<00:03,  1.18it/s]Batches:  70%|#######   | 7/10 [00:05<00:02,  1.19it/s]Batches:  80%|########  | 8/10 [00:06<00:01,  1.19it/s]Batches:  90%|######### | 9/10 [00:07<00:00,  1.24it/s]Batches: 100%|##########| 10/10 [00:07<00:00,  1.66it/s]Batches: 100%|##########| 10/10 [00:07<00:00,  1.30it/s]
+Batches:   0%|          | 0/10 [00:00<?, ?it/s]Batches:  10%|#         | 1/10 [00:00<00:07,  1.13it/s]Batches:  20%|##        | 2/10 [00:01<00:07,  1.08it/s]Batches:  30%|###       | 3/10 [00:02<00:06,  1.13it/s]Batches:  40%|####      | 4/10 [00:03<00:05,  1.17it/s]Batches:  50%|#####     | 5/10 [00:04<00:04,  1.17it/s]Batches:  60%|######    | 6/10 [00:05<00:03,  1.10it/s]Batches:  70%|#######   | 7/10 [00:06<00:02,  1.14it/s]Batches:  80%|########  | 8/10 [00:06<00:01,  1.17it/s]Batches:  90%|######### | 9/10 [00:07<00:00,  1.23it/s]Batches: 100%|##########| 10/10 [00:07<00:00,  1.67it/s]Batches: 100%|##########| 10/10 [00:07<00:00,  1.28it/s]
+  n_classes K=160   max possible entropy = log(160) = 5.075 nats
+
+Loading Asian/SE Asian folktales …
+  85 tales  ({'china': 37, 'korea': 26, 'japan': 22})
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|###3      | 1/3 [00:01<00:02,  1.20s/it]Batches:  67%|######6   | 2/3 [00:02<00:01,  1.13s/it]Batches: 100%|##########| 3/3 [00:03<00:00,  1.01it/s]Batches: 100%|##########| 3/3 [00:03<00:00,  1.03s/it]
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|###3      | 1/3 [00:01<00:02,  1.19s/it]Batches:  67%|######6   | 2/3 [00:02<00:01,  1.10s/it]Batches: 100%|##########| 3/3 [00:02<00:00,  1.09it/s]Batches: 100%|##########| 3/3 [00:02<00:00,  1.03it/s]
+
+Per-region normalized entropy:
+  china   : mean normalized entropy = 0.9579
+  japan   : mean normalized entropy = 0.9563
+  korea   : mean normalized entropy = 0.9566
+
+==========================================================================================
+  Hypothesis test: is the ATU classifier less confident on Asian tales?
+==========================================================================================
+
+Metric                               Western     Asian     Delta   Cohen d        MW p  Note
+------------------------------------------------------------------------------------------
+Max-softmax confidence                0.0413    0.0368   +0.0045     0.138    7.05e-01  higher=more confident
+Normalized entropy H/logK             0.9539    0.9571   -0.0032    -0.162    2.79e-01  lower=more confident; 1=random
+Margin p1-p2                          0.0161    0.0115   +0.0045     0.142    9.31e-01  higher=more decisive
+Mahalanobis distance                 21.3173   24.0829   -2.7656    -0.886    2.71e-12  higher=more OOD
+
+-- Interpretation ------------------------------------------------------------------
+  Western normalized entropy : 0.9539  (baseline: model trained on this distribution)
+  Asian   normalized entropy : 0.9571  (hypothesis: should be higher = more uncertain)
+  Scale: 0.00 = perfectly certain  |  1.00 = pure random guess over 160 classes
+Traceback (most recent call last):
+  File "C:\Users\ltsev\Downloads\folktale-classifier\run_evaluation.py", line 137, in <module>
+    print(f"  Asian H_norm={ne_a:.3f} \u2192 {label}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ltsev\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 21: character maps to <undefined>

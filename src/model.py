@@ -5,12 +5,13 @@ Classifier module: Logistic regression on sentence transformer embeddings
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Optional
 import logging
 from tqdm import tqdm
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
+from sklearn.covariance import LedoitWolf
 from sentence_transformers import SentenceTransformer
 import pickle
 
@@ -39,7 +40,7 @@ class FolktaleClassifier:
         # Initialize logistic regression
         self.classifier = LogisticRegression(
             C=config['model']['C'],
-            regularization=config['model']['regularization'],
+            penalty=config['model']['regularization'],
             max_iter=config['model']['max_iter'],
             solver=config['model']['solver'],
             random_state=config['model']['random_state'],
@@ -49,6 +50,9 @@ class FolktaleClassifier:
         
         self.label_encoder = LabelEncoder()
         self.is_fitted = False
+        # Set after training; used for Mahalanobis OOD detection
+        self.class_means_: Optional[np.ndarray] = None
+        self.precision_matrix_: Optional[np.ndarray] = None
     
     def encode_texts(self, texts: List[str]) -> np.ndarray:
         """
@@ -97,7 +101,16 @@ class FolktaleClassifier:
         logger.info(f"Training logistic regression with {X.shape[1]} features")
         self.classifier.fit(X, y)
         self.is_fitted = True
-        
+
+        # Compute class centroids and shared precision matrix for Mahalanobis OOD detection
+        n_classes = len(self.label_encoder.classes_)
+        self.class_means_ = np.array([X[y == k].mean(axis=0) for k in range(n_classes)])
+        # Stack within-class residuals and fit a shrinkage covariance estimate
+        centered = np.vstack([X[y == k] - self.class_means_[k] for k in range(n_classes)])
+        lw = LedoitWolf()
+        lw.fit(centered)
+        self.precision_matrix_ = lw.precision_
+
         # Compute training metrics
         train_pred = self.classifier.predict(X)
         train_acc = accuracy_score(y, train_pred)
@@ -157,29 +170,68 @@ class FolktaleClassifier:
         Returns:
             Dictionary with confidence metrics
         """
-        max_probs = np.max(probabilities, axis=1)  # Maximum probability
-        entropy = -np.sum(probabilities * np.log(probabilities + 1e-10), axis=1)  # Shannon entropy
-        
+        n_classes = probabilities.shape[1]
+        max_probs = np.max(probabilities, axis=1)
+        entropy = -np.sum(probabilities * np.log(probabilities + 1e-10), axis=1)
+        # Normalize entropy to [0, 1]: 0 = certain, 1 = uniform/random-guess
+        normalized_entropy = entropy / np.log(n_classes)
+        # Margin: gap between top-1 and top-2 probability
+        sorted_probs = np.sort(probabilities, axis=1)[:, ::-1]
+        margin = sorted_probs[:, 0] - sorted_probs[:, 1]
+
         return {
             'max_confidence': max_probs,
             'entropy': entropy,
+            'normalized_entropy': normalized_entropy,
+            'margin': margin,
             'mean_confidence': np.mean(max_probs),
-            'mean_entropy': np.mean(entropy),
             'std_confidence': np.std(max_probs),
-            'std_entropy': np.std(entropy)
+            'mean_entropy': np.mean(entropy),
+            'std_entropy': np.std(entropy),
+            'mean_normalized_entropy': np.mean(normalized_entropy),
+            'std_normalized_entropy': np.std(normalized_entropy),
+            'mean_margin': np.mean(margin),
+            'std_margin': np.std(margin),
         }
     
+    def mahalanobis_distances(self, texts: List[str]) -> np.ndarray:
+        """
+        Compute minimum Mahalanobis distance from each text to any training class centroid.
+
+        Large distance means the input is far from the training distribution (OOD).
+        This measure is independent of softmax calibration.
+
+        Args:
+            texts: List of text strings
+
+        Returns:
+            (n_texts,) array of minimum Mahalanobis distances
+        """
+        if self.class_means_ is None or self.precision_matrix_ is None:
+            raise ValueError("Model must be trained before computing Mahalanobis distances")
+
+        X = self.encode_texts(texts)
+        # Compute distance from each point to each class centroid, take minimum
+        dists = np.zeros((len(X), len(self.class_means_)))
+        for k, mu in enumerate(self.class_means_):
+            diff = X - mu  # (n, d)
+            # (x - mu)^T Σ^{-1} (x - mu), computed row-wise
+            dists[:, k] = np.sqrt(np.einsum('ij,jk,ik->i', diff, self.precision_matrix_, diff))
+        return np.min(dists, axis=1)
+
     def save(self, filepath: str):
         """Save trained model and preprocessing objects"""
         objects = {
             'classifier': self.classifier,
             'label_encoder': self.label_encoder,
-            'config': self.config
+            'config': self.config,
+            'class_means': self.class_means_,
+            'precision_matrix': self.precision_matrix_,
         }
         with open(filepath, 'wb') as f:
             pickle.dump(objects, f)
         logger.info(f"Model saved to {filepath}")
-    
+
     def load(self, filepath: str):
         """Load trained model and preprocessing objects"""
         with open(filepath, 'rb') as f:
@@ -187,6 +239,8 @@ class FolktaleClassifier:
         self.classifier = objects['classifier']
         self.label_encoder = objects['label_encoder']
         self.config = objects['config']
+        self.class_means_ = objects.get('class_means')
+        self.precision_matrix_ = objects.get('precision_matrix')
         self.is_fitted = True
         logger.info(f"Model loaded from {filepath}")
 
