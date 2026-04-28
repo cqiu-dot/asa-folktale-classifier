@@ -34,22 +34,45 @@ model:
 
 # Clustering configuration
 clustering:
-  # SAE-Lens parameters
+  # TopK SAE (EleutherAI architecture) — primary method
+  sae:
+    n_features: 1536       # expansion factor 4 × 384
+    k: 16                  # active features per tale
+    n_epochs: 150
+    lr: 0.0002
+    auxk_alpha: 0.03125    # 1/32, weight for dead-feature revival loss
+    batch_size: 256
+
+  # SAE-Lens parameters (legacy stub — not actively used)
   sae_lens:
-    enable: true
+    enable: false
     sparsity_penalty: 0.1
     learning_rate: 0.0001
-  
+
   # K-means alternative
   kmeans:
-    enable: false
+    enable: true
     n_clusters: 20
     n_init: 10
-  
+
   # Gemmascope alternative
   gemmascope:
     enable: false
     n_components: 20
+
+# Auto-interpretability (EleutherAI delphi methodology)
+auto_interp:
+  # Anthropic model used for explanation generation and scoring
+  model: "claude-haiku-4-5-20251001"
+  # Number of top SAE features to auto-explain
+  n_features_to_explain: 50
+  # Exemplars shown to LLM per feature
+  n_pos_exemplars: 7        # high-activation tales
+  n_neg_exemplars: 5        # zero-activation tales
+  n_score_pos: 5            # held-out positives for scoring
+  n_score_neg: 5            # held-out negatives for scoring
+  excerpt_len: 400          # character length of each excerpt
+  rate_limit_delay: 0.5     # seconds between API calls
 
 # Interpretability
 interpretability:
