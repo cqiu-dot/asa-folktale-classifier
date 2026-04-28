@@ -1,0 +1,159 @@
+NEURIPS READINESS CRITIQUE (PLAIN TEXT)
+
+OVERALL ASSESSMENT
+This version is significantly improved compared to the previous draft. The framing, claim calibration, and methodological clarity are all stronger. The paper is now close to being NeurIPS-ready, but still has a few critical gaps that could affect reviewer decisions.
+
+---
+
+WHAT HAS BEEN FIXED / IMPROVED
+
+1. Claim Calibration
+
+* Shifted from “ATU is not universal” to “transfers imperfectly under this operationalization.”
+* This removes a major reviewer red flag around overclaiming.
+
+2. ML-Centered Framing
+
+* The introduction now frames the problem as a label transfer / evaluation problem.
+* Aligns well with NeurIPS expectations.
+
+3. Removal of Internal Contradictions
+
+* Tibet inconsistency has been resolved.
+* Dataset definition is now cleaner and more defensible.
+
+4. Stronger Limitations Section
+
+* Explicitly acknowledges:
+
+  * lack of Europe-to-Europe control
+  * absence of human validation
+  * translation bias
+* Signals intellectual honesty and improves reviewer trust.
+
+5. Methodological Clarity
+
+* TF-IDF specification corrected (previous ambiguity removed).
+* Overall technical description is cleaner and more credible.
+
+---
+
+REMAINING WEAKNESSES (HIGH PRIORITY)
+
+1. Missing Core Control Experiment
+
+* No Europe-to-Europe transfer baseline.
+* This is the single biggest vulnerability.
+
+Risk:
+Reviewers may interpret results as generic domain shift rather than cultural mismatch.
+
+Required fix:
+Train on one subset of European data and test on another subset to establish baseline transfer degradation.
+
+---
+
+2. Missing Ablation Study
+
+Current issue:
+
+* Paper references ablation as future work.
+* This weakens confidence in the modeling choices.
+
+Minimum requirement:
+Include a table with:
+
+* TF-IDF only
+* Sentence embeddings only
+* Combined features
+
+---
+
+3. Lack of Visual Evidence
+
+Current issue:
+
+* Evidence is primarily textual and tabular.
+* NeurIPS reviewers rely heavily on visual summaries.
+
+Required additions:
+
+* One distribution plot (Western vs Asian entropy)
+* One pipeline diagram
+
+---
+
+4. Related Work Still Thin
+
+Current issue:
+
+* Limited engagement with:
+
+  * benchmark auditing literature
+  * dataset bias / transferability research
+  * cross-domain generalization work
+
+Impact:
+
+* Weakens perceived originality
+* Makes contribution seem isolated rather than part of an ongoing ML conversation
+
+---
+
+5. Residual Over-Interpretation
+
+Example:
+
+* Claims about cultural contact influencing transferability are speculative.
+
+Recommended fix:
+
+* Replace causal language with cautious phrasing:
+
+  * “consistent with”
+  * “suggestive but not directly tested”
+
+---
+
+FINAL VERDICT
+
+Previous version:
+
+* Not NeurIPS-ready
+
+Current version:
+
+* Close, but still borderline
+
+With the following additions:
+
+1. Europe-to-Europe control
+2. Basic ablation table
+3. One strong figure
+
+→ Becomes a competitive NeurIPS submission
+
+---
+
+PRIORITY ACTION PLAN
+
+Highest priority:
+
+* Add Europe-to-Europe transfer control
+* Add ablation table (TF-IDF vs embeddings vs combined)
+
+High priority:
+
+* Add entropy distribution figure
+* Add pipeline diagram
+
+Medium priority:
+
+* Expand related work
+* Soften speculative claims
+
+---
+
+BOTTOM LINE
+
+The idea is strong and now well-framed. The remaining gaps are not conceptual—they are validation and presentation issues. Fixing them would materially change how reviewers score the paper.

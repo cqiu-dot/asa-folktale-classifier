@@ -13,11 +13,21 @@ model:
   sentence_transformer: "sentence-transformers/all-MiniLM-L6-v2"
   embedding_dim: 384
   
-  # Logistic regression hyperparameters
+  # LinearSVC hyperparameter (C=5 optimal per 5-fold CV on 14-class grouping)
+  C: 5.0
+  max_iter: 10000
+  # (regularization and solver fields kept for backward compat; not used by LinearSVC)
   regularization: "l2"
-  C: 1.0  # Inverse of regularization strength
-  max_iter: 1000
   solver: "lbfgs"
+
+  # Feature configuration
+  # use_tfidf=true: Word TF-IDF (1-3gram, 50k) + Char TF-IDF (3-5gram, 30k)
+  # + L2-normed sentence embeddings. Combined CV accuracy on 14 ATU classes: ~71%.
+  # Mahalanobis OOD detection always uses the pure 384-dim embedding space.
+  use_tfidf: true
+
+  # ATU grouping: '14class' (scholarly subdivisions) or '7class' (broad majors)
+  atu_grouping: "14class"
   
   # Random seed for reproducibility
   random_state: 42

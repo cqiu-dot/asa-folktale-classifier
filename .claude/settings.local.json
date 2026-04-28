@@ -13,7 +13,23 @@
       "Bash(py -3.12 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
       "Bash(py -3.11 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
       "Bash(py -3.10 -c \"import sys; print\\(sys.version, sys.executable\\)\")",
-      "Bash(py -c \"import sys; print\\(sys.executable\\)\")"
+      "Bash(py -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import xgboost; print\\('xgboost', xgboost.__version__\\)\")",
+      "Bash(python -c \"import lightgbm; print\\('lightgbm', lightgbm.__version__\\)\")",
+      "Bash(python -c \"from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier; print\\('sklearn ensemble ok'\\)\")",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:openhumanitiesdata.metajnl.com)",
+      "Bash(curl -s --max-time 30 -I \"https://raw.githubusercontent.com/j-hagedorn/trilogy/master/data/aft.csv\")",
+      "Bash(curl -s --max-time 30 \"https://api.github.com/repos/j-hagedorn/trilogy/contents/data\")",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:www.surlalunefairytales.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:sites.pitt.edu)",
+      "WebFetch(domain:www.mftd.org)",
+      "WebFetch(domain:zenodo.org)",
+      "WebFetch(domain:www.researchgate.net)"
     ]
   }
 }
